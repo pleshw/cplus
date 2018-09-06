@@ -7,19 +7,20 @@
 
 using namespace std;
 
-void selection_sort(int * begin, int * end);
+void selection_sort(int * first, int * last);
 
-void insertion_sort(int * begin, int * end);
+void insertion_sort(int * first, int * last);
 
-void bubble_sort(int * begin, int * end);
+void bubble_sort(int * first, int * last);
 
-void merge_sort(int * begin, int * end);
+void merge_sort(int * first, int * last);
 
-void quick_sort(int * begin, int * end);
+void quick_sort(int * first, int * last);
 
-void partition(int * begin, int * end);
+void partition(int * first, int * last);
 
-void swapper(int * begin, int * end);
+void swapper(int * x, int * y);
 
+void merge(int * first, int * last);
 
 #endif
