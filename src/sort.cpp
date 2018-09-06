@@ -11,9 +11,14 @@ void insertion_sort(int * first, int * last){}
 void bubble_sort(int * first, int * last){}
 
 void merge_sort(int * first, int * last){
-	merge(first, last);
-
-	
+	int * mid;
+	if (first < last - 1){
+		mid = first + (distance(first, last)/2);
+		cout << endl << mid - first << endl;
+		merge_sort(first, mid);
+		merge_sort(mid+1, last);
+		merge(first, last);
+	}
 }
 
 void quick_sort(int * first, int * last, int * pivot){}
@@ -25,43 +30,40 @@ void partition(int * first, int * last){}
 ///merge itens to give a vector with a center value for merge sorting
 void merge(int * first, int * last){
 
-	int size(last - first - 1);
+	//size of the vector
+	int size(distance(first, last) - 1);
 
+	//begin and end of vector	
 	int * inicio_1(first);
 	int * fim_2(last);
 
+	//declare the count to middle of the vector
 	int meio(size/2);
 
+	//end of part 1, and begin of part two of vector
 	int * fim_1(first+meio);
 	int * inicio_2(fim_1+1);
 
 	int * tmp_vector = (int*) malloc(sizeof(int) * size);
 	int tmp_cont(0);
 
-
-	cout << "Endereco: ";
 	while(inicio_1 <= fim_1 && inicio_2 <= fim_2){
-		cout << endl << fim_1 - inicio_1 << " " << fim_2 - inicio_2;
 		if (*inicio_1 <= *inicio_2){
 			tmp_vector[tmp_cont++] = *inicio_1++;
 		}else{
 			tmp_vector[tmp_cont++] = *inicio_2++;
 		}
 	}
-
-	while(inicio_1 < fim_1){
+	while(inicio_1 <= fim_1){
 		tmp_vector[tmp_cont++] = *inicio_1++;
 	}
-
-	while(inicio_2 < fim_2){
+	while(inicio_2 <= fim_2){
 		tmp_vector[tmp_cont++] = *inicio_2++;
 	}
-
 	int copy_cont(0);
-	while(first != last){
+	while(first <= last){
 		*first++ = tmp_vector[copy_cont++];
 	}
-
 	delete [] tmp_vector;
 }
 
