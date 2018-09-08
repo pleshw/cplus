@@ -14,7 +14,6 @@ void merge_sort(int * first, int * last){
 	int * mid;
 	if (first < last){
 		mid = first + ((distance(first, last)-1)/2);
-		//cout << endl << mid << " -> " << "Mid pos: " << last - mid << endl;
 		merge_sort(first, mid);
 		merge_sort(mid+1, last);
 		merge(first, last, mid);
@@ -23,13 +22,14 @@ void merge_sort(int * first, int * last){
 
 void quick_sort(int * first, int * last, int * pivot){}
 
-
 ///Function that partitions your vector.
-void partition(int * first, int * last){}
+void partition(int * first, int * last){
+	
+}
 
-///merge itens to give a vector with a center value for merge sorting
+///Merge itens putting what is less than the center to the left and what is more than to the right
 void merge(int * first, int * last, int * middle){
-	//aloc the aux vector
+
 	int * tmp_vector = (int*) malloc( distance(first, last) * sizeof(int));
 
 	int * inicio_1(first);
@@ -52,14 +52,9 @@ void merge(int * first, int * last, int * middle){
 		tmp_vector[count++] = *(inicio_2++);
 	}
 
-	
-	cout << endl << "tmp: " << endl;
 	for(int i(0); first <= last; first++, i++){
 		*first = tmp_vector[i];
-		cout << tmp_vector[i] << " ";
 	}
-	cout << endl << endl;
-
 
 	delete [] tmp_vector;
 }
