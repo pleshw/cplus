@@ -2,7 +2,7 @@
 
 int main(int argc, char const *argv[]){
 
-	int Vet[] = {1, 3, 3, 5, 7, 2, 3, 7, 9, 10, 2, 2};
+	int Vet[] = {1, 3, 2, 4, 6, 5, 8, 7, 9};
 
 	cout << endl << "Before: " << endl;
 	for(auto i(0); i < distance(begin(Vet), end(Vet)); i++){

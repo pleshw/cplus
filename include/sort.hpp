@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iterator>
 #include <algorithm>
+#include <cstdlib>
 
 using namespace std;
 
@@ -21,6 +22,6 @@ void partition(int * first, int * last);
 
 void swapper(int * x, int * y);
 
-void merge(int * first, int * last);
+void merge(int * first, int * last, int * middle);
 
 #endif

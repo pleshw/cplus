@@ -12,12 +12,12 @@ void bubble_sort(int * first, int * last){}
 
 void merge_sort(int * first, int * last){
 	int * mid;
-	if (first < last - 1){
-		mid = first + (distance(first, last)/2);
-		cout << endl << mid - first << endl;
+	if (first < last){
+		mid = first + ((distance(first, last)-1)/2);
+		//cout << endl << mid << " -> " << "Mid pos: " << last - mid << endl;
 		merge_sort(first, mid);
 		merge_sort(mid+1, last);
-		merge(first, last);
+		merge(first, last, mid);
 	}
 }
 
@@ -28,42 +28,39 @@ void quick_sort(int * first, int * last, int * pivot){}
 void partition(int * first, int * last){}
 
 ///merge itens to give a vector with a center value for merge sorting
-void merge(int * first, int * last){
+void merge(int * first, int * last, int * middle){
+	//aloc the aux vector
+	int * tmp_vector = (int*) malloc( distance(first, last) * sizeof(int));
 
-	//size of the vector
-	int size(distance(first, last) - 1);
-
-	//begin and end of vector	
 	int * inicio_1(first);
-	int * fim_2(last);
+	int * inicio_2(middle+1);
+	int count(0);
 
-	//declare the count to middle of the vector
-	int meio(size/2);
-
-	//end of part 1, and begin of part two of vector
-	int * fim_1(first+meio);
-	int * inicio_2(fim_1+1);
-
-	int * tmp_vector = (int*) malloc(sizeof(int) * size);
-	int tmp_cont(0);
-
-	while(inicio_1 <= fim_1 && inicio_2 <= fim_2){
-		if (*inicio_1 <= *inicio_2){
-			tmp_vector[tmp_cont++] = *inicio_1++;
+	while(inicio_1 <= middle && inicio_2 <= last){
+		if (*inicio_1 < *inicio_2){
+			tmp_vector[count++] = *(inicio_1++);
 		}else{
-			tmp_vector[tmp_cont++] = *inicio_2++;
+			tmp_vector[count++] = *(inicio_2++);
 		}
 	}
-	while(inicio_1 <= fim_1){
-		tmp_vector[tmp_cont++] = *inicio_1++;
+
+	while(inicio_1 <= middle){
+		tmp_vector[count++] = *(inicio_1++);
 	}
-	while(inicio_2 <= fim_2){
-		tmp_vector[tmp_cont++] = *inicio_2++;
+
+	while(inicio_2 <= last){
+		tmp_vector[count++] = *(inicio_2++);
 	}
-	int copy_cont(0);
-	while(first <= last){
-		*first++ = tmp_vector[copy_cont++];
+
+	
+	cout << endl << "tmp: " << endl;
+	for(int i(0); first <= last; first++, i++){
+		*first = tmp_vector[i];
+		cout << tmp_vector[i] << " ";
 	}
+	cout << endl << endl;
+
+
 	delete [] tmp_vector;
 }
 
