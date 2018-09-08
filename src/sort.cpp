@@ -1,14 +1,47 @@
 #include "../include/sort.hpp"
 
-///All functions will recieve a pointer to first element of the vector and other to the last one.
-///Pls use the std::end and std::begin function to slast the pointers.
-
 
 void selection_sort(int * first, int * last){}
 
 void insertion_sort(int * first, int * last){}
 
 void bubble_sort(int * first, int * last){}
+
+
+
+
+void quick_sort(int * first, int * last, int * pivot){
+	swapper(pivot, last);
+	if (first < last){
+		int * sub_pivot = partition(first, last);
+		quick_sort(first, sub_pivot-1, sub_pivot-1);
+		quick_sort(sub_pivot+1, last, last);
+	}
+}
+//return a pointer to the pivot position in the vector after the partition
+int * partition(int * first, int * last){
+	int * pivot(last);
+	int * starter(last-1);
+	while(starter >= first){
+		//push the pointer to the first element that are greater or equal to the pivot
+		while(*first < *pivot && starter >= first){
+			first++;
+		}
+		//push the pointer to the first element that are lower or equal to the
+		while(*starter > *pivot && starter >= first){
+			starter--;
+		}
+		//if the first greater and the first lower are not in their position they swap
+		if (starter >= first){
+			swapper(starter, first);
+		} 
+	}
+	swapper(first, pivot);
+	return first;
+}
+
+
+
 
 void merge_sort(int * first, int * last){
 	int * mid;
@@ -19,15 +52,6 @@ void merge_sort(int * first, int * last){
 		merge(first, last, mid);
 	}
 }
-
-void quick_sort(int * first, int * last, int * pivot){}
-
-///Function that partitions your vector.
-void partition(int * first, int * last){
-	
-}
-
-///Merge itens putting what is less than the center to the left and what is more than to the right
 void merge(int * first, int * last, int * middle){
 
 	int * tmp_vector = (int*) malloc( distance(first, last) * sizeof(int));
@@ -58,6 +82,7 @@ void merge(int * first, int * last, int * middle){
 
 	delete [] tmp_vector;
 }
+
 
 ///Function that swap values in pointers
 void swapper(int * x, int * y){
