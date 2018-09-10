@@ -2,7 +2,7 @@
 
 int main(int argc, char const *argv[]){
 
-	int Vet[] = {1, 3, 5, 4, 6, 2, 8, 7, 9, 10};
+	int Vet[] = {1, 2, 3, 4, 5};
 
 	cout << endl << "Before: " << endl;
 	for(auto i(0); i < distance(begin(Vet), end(Vet)); i++){
@@ -10,7 +10,9 @@ int main(int argc, char const *argv[]){
 	}
 	cout << endl << endl;
 	
-	quick_sort(begin(Vet), end(Vet)-1, begin(Vet)+2);
+	//selection_sort(begin(Vet), end(Vet));
+
+	quick_sort(begin(Vet), end(Vet) - 1);
 
 	cout << endl << "After: " << endl;
 	for(auto i(0); i < distance(begin(Vet), end(Vet)); i++){

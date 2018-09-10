@@ -1,7 +1,26 @@
 #include "../include/sort.hpp"
 
 
-void selection_sort(int * first, int * last){}
+void selection_sort(int * first, int * last){
+	int * aux(first); //control pointer
+	int * lowerValue(first); //lower value
+	
+	//if theres no range to compare the array is already ordered
+	if (first == last) return;
+
+	//aux runs the vector and compare any element to the actual lower
+	while(aux <= last){
+		//if there's a element lower than the actual lower the lower pointer goes for it
+		if (*aux < *lowerValue){
+			lowerValue = aux;
+		}
+		aux++;
+	}
+	//swap the actual lower with the element in first position
+	swapper(first, lowerValue);
+	//calls the function again but with the next pos as first position
+	selection_sort(first+1, last);
+}
 
 void insertion_sort(int * first, int * last){}
 
@@ -10,78 +29,74 @@ void bubble_sort(int * first, int * last){}
 
 
 
-void quick_sort(int * first, int * last, int * pivot){
-	swapper(pivot, last);
-	if (first < last){
-		int * sub_pivot = partition(first, last);
-		quick_sort(first, sub_pivot-1, sub_pivot-1);
-		quick_sort(sub_pivot+1, last, last);
+void quick_sort(int * first, int * last){
+	//if theres not a range to be partitioned this block is already ordered
+	if (first < last){ 
+		//////may improve the time of execution
+		//////find a term that is the medium value of first last and middle element in the array
+		//////int * pivot = medio(first, last); 
+		//////swapper(pivot, last);
+		//partition the vector and put the pivot in its position in the array
+		int * center = partition(first, last);
+		//do the same but with the block of elements that are lower than pivot
+		//and the block of greater elements
+		quick_sort(first, center-1);
+		quick_sort(center+1, last);
 	}
 }
 //return a pointer to the pivot position in the vector after the partition
 int * partition(int * first, int * last){
-	int * pivot(last);
-	int * starter(last-1);
-	while(starter >= first){
+	int * a(first);
+	int * b(last-1);
+
+	//cout << endl << endl << " ----------------------------------" 
+	//<< endl << endl << "[]: ";
+	//for(auto i(first); i <= b; i++) 
+	//	cout << *i << " ";
+
+	//cout << " Pivot: " << *last << endl << endl;
+
+	while(b >= a){
+//----------------------------------------------------------------------------------------------------
 		//push the pointer to the first element that are greater or equal to the pivot
-		while(*first < *pivot && starter >= first){
-			first++;
+		while(*a <= *last && b >= a){	
+			//cout << " a --> " << *a << endl;
+			a++;
 		}
-		//push the pointer to the first element that are lower or equal to the
-		while(*starter > *pivot && starter >= first){
-			starter--;
+		//cout << " a --> " << *a << endl << endl;
+//----------------------------------------------------------------------------------------------------
+		//push the pointer to the first element that are lower or equal to the pivot
+		while(*b >= *last && b >= a){
+			//cout << " b --> " << *b << endl;
+			b--;
 		}
+		//cout << " b --> " << *b << endl;
+//----------------------------------------------------------------------------------------------------
 		//if the first greater and the first lower are not in their position they swap
-		if (starter >= first){
-			swapper(starter, first);
-		} 
-	}
-	swapper(first, pivot);
-	return first;
-}
-
-
-
-
-void merge_sort(int * first, int * last){
-	int * mid;
-	if (first < last){
-		mid = first + ((distance(first, last)-1)/2);
-		merge_sort(first, mid);
-		merge_sort(mid+1, last);
-		merge(first, last, mid);
-	}
-}
-void merge(int * first, int * last, int * middle){
-
-	int * tmp_vector = (int*) malloc( distance(first, last) * sizeof(int));
-
-	int * inicio_1(first);
-	int * inicio_2(middle+1);
-	int count(0);
-
-	while(inicio_1 <= middle && inicio_2 <= last){
-		if (*inicio_1 < *inicio_2){
-			tmp_vector[count++] = *(inicio_1++);
-		}else{
-			tmp_vector[count++] = *(inicio_2++);
+		//and if b still in range of the array
+		if (*b >= *a && b >= first){
+			//cout << "swap(a, b)" << endl;
+			swapper(a, b);
 		}
+//----------------------------------------------------------------------------------------------------	
 	}
-
-	while(inicio_1 <= middle){
-		tmp_vector[count++] = *(inicio_1++);
-	}
-
-	while(inicio_2 <= last){
-		tmp_vector[count++] = *(inicio_2++);
-	}
-
-	for(int i(0); first <= last; first++, i++){
-		*first = tmp_vector[i];
-	}
-
-	delete [] tmp_vector;
+	//cout << endl << "swap(a, pivot)" << endl;
+	swapper(a, last);
+	//cout << endl << "[]: ";
+	//for(auto i(first); i <= last; i++) 
+	//	cout << *i << " ";
+	return a;
 }
+
+
+void merge_sort( int * first, int * last){
+
+}
+
+void merge( int * first, int *  last){
+	
+}
+
 
 
 ///Function that swap values in pointers
@@ -90,4 +105,21 @@ void swapper(int * x, int * y){
 	aux = *x;
 	*x = *y;
 	*y = aux;
+}
+
+
+
+
+int * medio(int * first, int * last){
+	int * a = first;
+	int * b = first + ((distance(first, last)/2) - 1);
+	int * c = last;
+	if ((*a > *b && *a < *c) || (*a > *c && *a < *b)) return a;
+	if ((*b > *a && *b < *c) || (*b > *c && *b < *a)) return b;
+	if ((*c > *b && *c < *b) || (*c > *b && *c < *b)) return c;
+	if (*a == *b) return a;
+	if (*a == *c) return a;
+	if (*b == *c) return b;
+
+	return b;
 }
