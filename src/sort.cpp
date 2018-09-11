@@ -88,13 +88,60 @@ int * partition(int * first, int * last){
 	return a;
 }
 
-
+//this recursively divide the actual problem in two until it be just blocks of one, then he back mergin the elements
+//creating ordered blocks of data that will be merged next
 void merge_sort( int * first, int * last){
-
+	if (first < last){
+		int * meio = first + ((distance(first, last)-1)/2);
+		merge_sort(first, meio);
+		merge_sort(meio + 1, last);
+		merge(first, meio, last);
+	}
 }
 
-void merge( int * first, int *  last){
-	
+//merging concept: 
+/// if i have two  blocks ordereds of data like this v1: [1, 3], v2: [2, 4]
+/// then i can sort then by comparing their lowers elements(both in the first position) and putting it in a new vector v: []
+/// after that advance one position in the vector that has the lower element and compare again.
+/// something like:
+//// v1[0]: 1 / v2[0]: 2   *//* 1 < 2 then v[n] = v1 // v1++
+//// v1[1]: 3 / v2[0]: 2   *//* 2 < 3 then v[n+1] = v2 // v2++
+//// v1[0]: 3 / v2[0]: 4   *//* 3 < 4 then v[n+2] = v1 // v1 end
+/// after that process you just need put the remaining terms
+/// while v1 not in last pos v[n] = v1 --------- but v1 already ended so he will not enter here
+/// while v2 not in last pos v[n] = v2 --------- now v[n+3] = 4 then v2 end
+/// at the end of the process will be like v[3] : [1, 2, 3, 4]
+void merge( int * first, int * meio, int *  last){
+	int * inicio_1(first);
+	int * inicio_2(meio + 1);
+	int * fim_1(meio);
+	int * fim_2(last);
+
+	int * tmp((int*) malloc ((distance(first, last) + 1) * sizeof(int) ));
+	int n(0);
+
+	while(inicio_1 <= fim_1 && inicio_2 <= fim_2){
+		if (*inicio_1 <= *inicio_2){
+			tmp[n++] = *(inicio_1++);
+		}else{
+			tmp[n++] = *(inicio_2++); 
+		}
+	}
+
+	while(inicio_1 <= fim_1){
+		tmp[n++] = *inicio_1++;
+	}
+	while(inicio_2 <= fim_2){
+		tmp[n++] = *(inicio_2++);
+	}
+
+	int cpy_count(0);
+	for (auto i(first); i <= last; i++){
+		*i = tmp[cpy_count++];
+	}
+
+	delete [] tmp;
+
 }
 
 

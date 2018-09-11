@@ -23,7 +23,7 @@ void bubble_sort(int * first, int * last);
 ///make merge sorting of itens in a vector recursively
 void merge_sort(int * first, int * last);
 ///Merge itens putting what is less than the center to the left and what is more than to the right
-void merge(int * first, int * last);
+void merge(int * first, int * meio, int * last);
 
 
 void quick_sort(int * first, int * last);
