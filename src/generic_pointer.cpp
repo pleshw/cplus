@@ -21,10 +21,10 @@ using byte = unsigned char;
 
 //CODE BELOW:
 
-void generic_swap( void * initialP, size_t size, unsigned int n1, unsigned int n2 ){
+void generic_swap(unsigned int n1, unsigned int n2, void * initialP, size_t size){
 	byte aux[size];
 
-	byte * first = static_cast< byte * > ( initialP ); //convert first in a pointer that move one byte in memory and have f[0] position
+	byte * first = static_cast< byte * > ( initialP ); //create first(a pointer that move one byte in memory and have initialP position)
 
 	memcpy( aux, first+(n1*size), size );//aux gets n1
 	memcpy( first+(n1*size), first+(n2*size), size );//n1 gets n2
