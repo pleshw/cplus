@@ -3,7 +3,25 @@
 
 using byte = unsigned char;
 
-void swap( void * initialP, size_t size, unsigned int n1, unsigned int n2 ){
+///SOME SELF EXPLANATION (OR JUST A EXPLANATION IF IT'S NOT ME READING THIS):
+//-generic pointers deal with memory(damn)
+//-so we need to know the size of the blocks we are moving or copying etc
+//-this way we can have a idea of where we need to move our pointer
+
+//-here the pointers usually(or always i don't know yet) move one byte each time
+//-this way we have a better control where they are and we can deal with any type of variable or block of memory
+
+//-the idea is move the pointer n*size to place them in the spot we want 
+//-where n  is the position in that block we want
+//--ex: int vector[n]	//each block in this vector (vector[0], vector[1]... vector[n]) have a int size
+//--so we cant go to the position 3 'jumping' 3*sizeof(int) bytes from the 0 position in the vector
+//-----visual:(imagine this is the vector in memory) [{block size}, {block size}, {block size} ... {block size}]
+//-----each block represents a position in the vector, so if we want got from the first to the n position
+//-----we will need that our pointer that walk one byte for 'step' walk n*(the block size) times
+
+//CODE BELOW:
+
+void generic_swap( void * initialP, size_t size, unsigned int n1, unsigned int n2 ){
 	byte aux[size];
 
 	byte * first = static_cast< byte * > ( initialP ); //convert first in a pointer that move one byte in memory and have f[0] position
@@ -13,6 +31,3 @@ void swap( void * initialP, size_t size, unsigned int n1, unsigned int n2 ){
 	memcpy( first+(n2*size), aux, size );//n2 gets aux(that have n1 value) 
 }
 
-//n*size because every block of memory on vector have this size in bytes
-//so when we wanna move the pointer to block n 
-//we go n*size times to the direction of that block
