@@ -9,6 +9,7 @@
 
 using namespace std;
 
-void generic_swap( void * n1, void * n2, size_t size);
+void   generic_swap ( void * n1, void * n2, size_t size);
+void * generic_min  (void * first, void * last, size_t size);
 
 #endif

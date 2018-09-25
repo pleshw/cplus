@@ -28,3 +28,18 @@ void generic_swap(void * n1, void * n2, size_t size){
 	memcpy(  n2, aux, size );//n2 gets aux(that have n1 value) 
 }
 
+
+void * generic_min(void * first, void * last, size_t size){
+	byte * smallest = static_cast< byte *> (first);
+	byte * forward  = static_cast< byte *> (first);
+	forward+=size;
+
+	while(forward != last){
+		if (*forward < *smallest){
+			smallest = forward;
+		}
+		forward+=size;
+	}
+
+	return smallest;
+}
