@@ -1,6 +1,6 @@
 --This is a cpp testing place.
 
---g++ main.cpp src/sort.cpp -o main -Wall -pedantic -std=c++11
+--make build
 
 --Most of this code is being developed as exercise to some of my grades.
 

@@ -1,5 +1,4 @@
-#include <iostream>
-#include <cstring>
+#include "../include/generic_pointer.hpp"
 
 using byte = unsigned char;
 
@@ -21,13 +20,11 @@ using byte = unsigned char;
 
 //CODE BELOW:
 
-void generic_swap(unsigned int n1, unsigned int n2, void * initialP, size_t size){
-	byte aux[size];
+void generic_swap(void * n1, void * n2, size_t size){
+	byte aux[size];//aux is a block of memory with size equals to size
 
-	byte * first = static_cast< byte * > ( initialP ); //create first(a pointer that move one byte in memory and have initialP position)
-
-	memcpy( aux, first+(n1*size), size );//aux gets n1
-	memcpy( first+(n1*size), first+(n2*size), size );//n1 gets n2
-	memcpy( first+(n2*size), aux, size );//n2 gets aux(that have n1 value) 
+	memcpy( aux,  n1, size );//aux gets n1
+	memcpy(  n1,  n2, size );//n1 gets n2
+	memcpy(  n2, aux, size );//n2 gets aux(that have n1 value) 
 }
 

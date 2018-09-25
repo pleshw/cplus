@@ -1,4 +1,5 @@
-#include "include/sort.hpp"
+#include "../include/sort.hpp"
+#include "../include/generic_pointer.hpp"
 
 int main(int argc, char const *argv[]){
 
@@ -16,12 +17,15 @@ int main(int argc, char const *argv[]){
 
 	merge_sort(begin(Vet), end(Vet) - 1);
 
+	generic_swap( begin(Vet), end(Vet) - 1, sizeof(Vet[0]));
+
 	cout << endl << "After: " << endl;
 	for(auto i(0); i < distance(begin(Vet), end(Vet)); i++){
 		cout << Vet[i] << " ";
 	}
-	cout << endl << endl;
+	cout << endl << endl << "ENTER TO QUIT" << endl << endl;
 
+	getchar();
 
 	return 0;
 }
