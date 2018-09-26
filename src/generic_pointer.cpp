@@ -59,7 +59,7 @@ void generic_reverse(void * first, void * last, size_t size){
 	byte * backward = static_cast< byte *> (last);
 	while(forward <= backward){
 		generic_swap(forward, backward, size);
-		forward +=size;
+		forward +=size; 
 		backward-=size;
 	}
 }
