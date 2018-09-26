@@ -1,6 +1,17 @@
 #include "../include/generic_pointer.hpp"
 
-using byte = unsigned char;
+
+
+///Generic Filters
+
+bool int_isSmall(const void * a, const void * b){
+	int compA = *(int*)a;
+	int compB = *(int*)b;
+	if( compA < compB) return true;
+	return false;
+}
+
+
 
 ///SOME SELF EXPLANATION (OR JUST A EXPLANATION IF IT'S NOT ME READING THIS):
 //-generic pointers deal with memory(damn)
@@ -20,26 +31,47 @@ using byte = unsigned char;
 
 //CODE BELOW:
 
+
 void generic_swap(void * n1, void * n2, size_t size){
 	byte aux[size];//aux is a block of memory with size equals to size
-
 	memcpy( aux,  n1, size );//aux gets n1
 	memcpy(  n1,  n2, size );//n1 gets n2
 	memcpy(  n2, aux, size );//n2 gets aux(that have n1 value) 
 }
 
 
-void * generic_min(void * first, void * last, size_t size){
+void * generic_min(void * first, void * last, size_t size, Filter_min filter){
 	byte * smallest = static_cast< byte *> (first);
 	byte * forward  = static_cast< byte *> (first);
 	forward+=size;
-
-	while(forward != last){
-		if (*forward < *smallest){
+	while(forward <= last){
+		if(filter(forward ,smallest)){
 			smallest = forward;
 		}
 		forward+=size;
 	}
-
 	return smallest;
+}
+
+
+void generic_reverse(void * first, void * last, size_t size){
+	byte * forward  = static_cast< byte *> (first);
+	byte * backward = static_cast< byte *> (last);
+	while(forward <= backward){
+		generic_swap(forward, backward, size);
+		forward +=size;
+		backward-=size;
+	}
+}
+
+
+void * generic_copy(void * first, void * last, void * d_first, size_t size){
+	byte * forward   = static_cast< byte *> (first);
+	byte * d_forward = static_cast< byte *> (d_first);
+	while(forward <= last){
+		memcpy(d_forward, forward, size);
+		forward   += size;
+		d_forward += size;
+	}
+	return (d_forward-size);
 }

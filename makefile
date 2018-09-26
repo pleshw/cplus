@@ -18,7 +18,4 @@ sort.o: include/sort.hpp
 clean:
 	rm -rf build/*.o
 	mv *.o build
-	
-mrproper: clean
-	rm -rf main
 
