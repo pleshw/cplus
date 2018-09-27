@@ -3,12 +3,12 @@
 
 int main(int argc, char const *argv[]){
 
-	int Vet[] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+	float Vet[] = {0.3, 1.5, 2, 3, 4, 5, 6, 7, -3};
 	//int d_Vet[9];
 
 	cout << endl << "Before: " << endl;
 	for(auto i(0); i < distance(begin(Vet), end(Vet)); i++){
-		cout << Vet[i] << " ";
+		cout << Vet[i] << "  ";
 	}
 	cout << endl;
 	
@@ -20,9 +20,9 @@ int main(int argc, char const *argv[]){
 
 	//generic_swap( begin(Vet), end(Vet) - 1, sizeof(Vet[0]));
 
-	// Filter_min filter = int_isSmall;
+	// Filter filter = int_isSmall;
 	// auto s = generic_min( begin(Vet), end(Vet) - 1, sizeof(Vet[0]), filter);
-	// cout << endl << "Generic min returned: "<< *static_cast<int *>(s) << endl;
+	// cout << endl << "Generic min returned: "<< *static_cast<float *>(s) << endl;
 
 	//generic_reverse( begin(Vet), end(Vet) - 1, sizeof(Vet[0]));
 
@@ -35,10 +35,14 @@ int main(int argc, char const *argv[]){
 	// cout << endl << "Last d_Vet[] element: " << *do_it << endl;
 
 	
+	// Search s = int_findFirst;
+	// auto   f = generic_find_if(begin(Vet), end(Vet) - 1, sizeof(Vet[0]), s);
+	// cout << endl << "Generic find_if returned to int_findFirst search: "<< *static_cast<float *>(f) << endl;
+
 
 	cout << endl << "After: " << endl;
 	for(auto i(0); i < distance(begin(Vet), end(Vet)); i++){
-		cout << Vet[i] << " ";
+		cout << Vet[i] << "  ";
 	}
 	cout << endl;
 

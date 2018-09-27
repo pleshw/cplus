@@ -11,6 +11,16 @@ bool int_isSmall(const void * a, const void * b){
 	return false;
 }
 
+///Generic searchs
+bool int_findFirst(const void * n){
+	float compA = *(float*)n;
+	int   compB = int(*(float*)n);
+	if(compA == compB){
+		return true;
+	} 
+	return false;
+}
+
 
 
 ///SOME SELF EXPLANATION (OR JUST A EXPLANATION IF IT'S NOT ME READING THIS):
@@ -40,7 +50,7 @@ void generic_swap(void * n1, void * n2, size_t size){
 }
 
 
-void * generic_min(void * first, void * last, size_t size, Filter_min filter){
+void * generic_min(void * first, void * last, size_t size, Filter filter){
 	byte * smallest = static_cast< byte *> (first);
 	byte * forward  = static_cast< byte *> (first);
 	forward+=size;
@@ -74,4 +84,25 @@ void * generic_copy(void * first, void * last, void * d_first, size_t size){
 		d_forward += size;
 	}
 	return (d_forward-size);
+}
+
+void * generic_clone(void * first, void * last, size_t size){
+	byte * forward       = static_cast< byte *> (first);
+	byte * backward      = static_cast< byte *>  (last);
+	byte * return_vector = new byte[size * (backward - forward)];
+	while(forward <= last){
+		memcpy(return_vector, forward, size);
+		forward       += size;
+		return_vector += size;
+	}
+	return return_vector;
+}
+
+
+void * generic_find_if(void * first, void * last, size_t size, Search s){
+	byte * forward = static_cast< byte *> (first);
+	while(!s(forward)){
+		forward+=size;
+	}
+	return forward;
 }
