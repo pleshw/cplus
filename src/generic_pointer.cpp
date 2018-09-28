@@ -89,13 +89,14 @@ void * generic_copy(void * first, void * last, void * d_first, size_t size){
 void * generic_clone(void * first, void * last, size_t size){
 	byte * forward       = static_cast< byte *> (first);
 	byte * backward      = static_cast< byte *>  (last);
-	byte * return_vector = new byte[size * (backward - forward)];
+	byte * clone         = new byte[size * (backward - forward)];
+	byte * it_clone      = clone;
 	while(forward <= last){
-		memcpy(return_vector, forward, size);
-		forward       += size;
-		return_vector += size;
+		memcpy(it_clone, forward, size);
+		forward  += size;
+		it_clone += size;
 	}
-	return return_vector;
+	return clone;
 }
 
 
